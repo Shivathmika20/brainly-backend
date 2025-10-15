@@ -6,7 +6,7 @@ import authRouter from "./routes/authRoute.js";
 const app = express();
 
 app.use(express.json());
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 const connectDB = async () => {
     try {
