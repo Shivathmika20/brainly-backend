@@ -3,7 +3,7 @@ import { z } from "zod";
 import { User } from "../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import config from "../config";
+import {JWT_SECRET} from "../config";
 
 
 const signupSchema=z.object({
@@ -79,12 +79,12 @@ export const signin = async(req:Request,res:Response) => {
       {
          const isPasswordValid=await bcrypt.compare(password,user.password);
          if(isPasswordValid) {
-            if (!config.JWT_SECRET) {
+            if (!JWT_SECRET) {
                throw new Error('JWT_SECRET is not defined in config');
             }
             const token = jwt.sign(
                { id: user._id, username: user.userName },
-               config.JWT_SECRET,
+               JWT_SECRET,
                { expiresIn: "1h" }
             );
             return res.status(200).json({ token });
