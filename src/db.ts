@@ -1,11 +1,11 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 
-enum ContentType{
-    VIDEO = "video",
+export enum ContentType{
     DOCUMENT = "pdf",
-    IMAGE="image",
-    TEXT="text",
+    TWITTER="twitter",
+    YOUTUBE="youtube",
+    
 }
 
 
@@ -22,7 +22,7 @@ const ContentSchema= new Schema({
     link: { type: String, required: true },
     type: { type: String, enum: Object.values(ContentType), required: true },
     tagofContent: [{ type: Types.ObjectId, ref: "tags" }],
-    userId: { type: Types.ObjectId, ref: "users" },
+    userId: { type: Types.ObjectId, ref: "users"},
     createdAt: { type: Date, default: Date.now },
     
 })

@@ -8,9 +8,9 @@ const authMiddleware = (req:Request,res:Response,next:NextFunction) => {
    const token= req.headers.authorization; //token can be string or undefined we jst need string  so we use as string same goes for JWT_SECRET
    try {
       
-      const decoded = jwt.verify(token as string, JWT_SECRET as string);
-      // @ts-ignore
-      req.user = decoded;
+      const decoded = jwt.verify(token as string, JWT_SECRET as string) as { id: string };
+      //@ts-ignore
+      req.userId=decoded.id;
       next();
    } catch (err) {
       return res.status(401).json({ error: "Unauthorized" });

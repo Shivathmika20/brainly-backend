@@ -83,7 +83,7 @@ export const signin = async(req:Request,res:Response) => {
                throw new Error('JWT_SECRET is not defined in config');
             }
             const token = jwt.sign(
-               { id: user._id, username: user.userName },
+               { id: user._id},
                JWT_SECRET,
                { expiresIn: "1h" }
             );
