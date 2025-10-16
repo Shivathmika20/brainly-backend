@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import {DATABASE,PORT} from "./config.js";
 import authRouter from "./routes/authRoute";
 import contentRouter from "./routes/contentRoute";
+import shareRouter from "./routes/shareRoute";
 const app = express();
 
 app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api', contentRouter);
+app.use('/api', shareRouter);
 
 const connectDB = async () => {
     try {

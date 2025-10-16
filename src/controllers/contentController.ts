@@ -4,10 +4,9 @@ import { z } from "zod";
 import { Types } from "mongoose";
 import {ensureTagsExist} from "../services/tags-services";
 
-// Extend Request type to include user
-interface AuthenticatedRequest extends Request {
-    userId?: Types.ObjectId;
-}
+
+
+
 
 const contentSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -16,7 +15,7 @@ const contentSchema = z.object({
     tags: z.array(z.string()).optional(),
 });
 
-export const createContent = async (req: AuthenticatedRequest, res: Response) => {
+export const createContent = async (req: Request, res: Response) => {
     const result = contentSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ error: result.error.message });
@@ -45,7 +44,7 @@ export const createContent = async (req: AuthenticatedRequest, res: Response) =>
         return res.status(500).json({ error: "Failed to create content" });
     }
 }
-export const getContent=async (req:AuthenticatedRequest,res:Response)=>{
+export const getContent=async (req:Request,res:Response)=>{
     const userId=req.userId;
     try{
         const contents=await Content.find({userId:userId});
@@ -56,7 +55,7 @@ export const getContent=async (req:AuthenticatedRequest,res:Response)=>{
     }
 }
 
-export const deleteContent=async(req:AuthenticatedRequest,res:Response)=>{
+export const deleteContent=async(req:Request,res:Response)=>{
     const {id}=req.params;
     try{
         await Content.findByIdAndDelete(id);
