@@ -45,10 +45,25 @@ export const createContent = async (req: AuthenticatedRequest, res: Response) =>
         return res.status(500).json({ error: "Failed to create content" });
     }
 }
-export const getContent=()=>{
-
+export const getContent=async (req:AuthenticatedRequest,res:Response)=>{
+    const userId=req.userId;
+    try{
+        const contents=await Content.find({userId:userId});
+        return res.status(200).json({contents});
+    } catch (error) {
+        console.error("Content fetching error:", error);
+        return res.status(500).json({ error: "Failed to fetch content" });
+    }
 }
 
-export const deleteContent=()=>{
+export const deleteContent=async(req:AuthenticatedRequest,res:Response)=>{
+    const {id}=req.params;
+    try{
+        await Content.findByIdAndDelete(id);
+        return res.status(200).json({message:"Content deleted successfully"});
+    } catch (error) {
+        console.error("Content deletion error:", error);
+        return res.status(500).json({ error: "Failed to delete content" });
+    }
 
 }
