@@ -1,12 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import {DATABASE,PORT} from "./config.js";
-import authRouter from "./routes/authRoute.js";
-
+import authRouter from "./routes/authRoute";
+import contentRouter from "./routes/contentRoute";
 const app = express();
 
 app.use(express.json());
 app.use('/api/auth', authRouter);
+app.use('/api', contentRouter);
 
 const connectDB = async () => {
     try {
