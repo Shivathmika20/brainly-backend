@@ -56,15 +56,6 @@ export const signup = async (req:Request,res:Response) => {
       return res.status(200).json({message:"User signed up successfully"});
       
    } catch(error){
-      console.error("Signup Error:", {
-         timestamp: new Date().toISOString(),
-         endpoint: "/auth/signup",
-         error: error instanceof Error ? error.message : "Unknown error",
-         stack: error instanceof Error ? error.stack : undefined,
-         body: req.body,
-       
-      });
-
       return res.status(500).json({error:"Failed to create user"});
    }
 };
