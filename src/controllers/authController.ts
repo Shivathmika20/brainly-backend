@@ -66,22 +66,24 @@ export const signin = async(req:Request,res:Response) => {
    try{
       const {userName,password}=req.body as userInput;
       const user=await User.findOne({userName});
-      if(user)
-      {
-         const isPasswordValid=await bcrypt.compare(password,user.password);
-         if(isPasswordValid) {
-            if (!JWT_SECRET) {
-               throw new Error('JWT_SECRET is not defined in config');
-            }
-            const token = jwt.sign(
-               { id: user._id},
-               JWT_SECRET,
-               { expiresIn: "1h" }
-            );
-            return res.status(200).json({ token });
-         } else {
-            return res.status(401).json({ error: "Invalid password" });
+      
+      if(!user) {
+         return res.status(401).json({ error: "User not found" });
+      }
+      
+      const isPasswordValid=await bcrypt.compare(password,user.password);
+      if(isPasswordValid) {
+         if (!JWT_SECRET) {
+            throw new Error('JWT_SECRET is not defined in config');
          }
+         const token = jwt.sign(
+            { id: user._id},
+            JWT_SECRET,
+            { expiresIn: "1h" }
+         );
+         return res.status(200).json({ token });
+      } else {
+         return res.status(401).json({ error: "Invalid password" });
       }
    }
    catch(error){
