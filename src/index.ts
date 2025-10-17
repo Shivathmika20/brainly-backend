@@ -4,9 +4,12 @@ import {DATABASE,PORT} from "./config.js";
 import authRouter from "./routes/authRoute";
 import contentRouter from "./routes/contentRoute";
 import shareRouter from "./routes/shareRoute";
+import cors from "cors";
+
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api', contentRouter);
 app.use('/api', shareRouter);
