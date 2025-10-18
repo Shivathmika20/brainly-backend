@@ -48,7 +48,10 @@ export const getContent=async (req:Request,res:Response)=>{
     const userId=req.userId;
     try{
         const contents=await Content.find({userId:userId});
-        return res.status(200).json({contents});
+        if(!contents){
+            return res.json({message:"No content found"});
+        }
+        return res.status(200).json({contents:contents,length:contents.length});
     } catch (error) {
         console.error("Content fetching error:", error);
         return res.status(500).json({ error: "Failed to fetch content" });
