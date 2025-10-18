@@ -51,7 +51,11 @@ export const getContent=async (req:Request,res:Response)=>{
         if(!contents){
             return res.json({message:"No content found"});
         }
-        return res.status(200).json({contents:contents,length:contents.length});
+        const allTagIds = contents.flatMap(content => content.tagofContent);
+        const tagsofContent = await Tags.find({
+            _id: {$in: allTagIds}
+        });
+        return res.status(200).json({contents:contents,length:contents.length,tagsofContent:tagsofContent});
     } catch (error) {
         console.error("Content fetching error:", error);
         return res.status(500).json({ error: "Failed to fetch content" });
