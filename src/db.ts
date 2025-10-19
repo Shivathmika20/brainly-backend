@@ -2,9 +2,9 @@ import mongoose, { Schema, Types } from "mongoose";
 
 
 export enum ContentType{
-    DOCUMENT = "pdf",
-    TWITTER="twitter",
-    YOUTUBE="youtube",
+    DOCUMENT = "documents",
+    TWITTER="tweets",
+    YOUTUBE="videos",
     
 }
 

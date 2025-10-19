@@ -46,11 +46,19 @@ export const createContent = async (req: Request, res: Response) => {
 }
 export const getContent=async (req:Request,res:Response)=>{
     const userId=req.userId;
+    const {type} = req.query;
+    
     try{
-        const contents=await Content.find({userId:userId});
-        if(!contents){
-            return res.json({message:"No content found"});
+        const filter:any={userId:userId};
+        if(type){
+            filter.type=type;
         }
+        
+        const contents=await Content.find(filter);
+        if(!contents || contents.length === 0){
+            return res.json({message:"No content found", contents:[], length:0, tagsofContent:[]});
+        }
+        
         const allTagIds = contents.flatMap(content => content.tagofContent);
         const tagsofContent = await Tags.find({
             _id: {$in: allTagIds}
@@ -73,3 +81,5 @@ export const deleteContent=async(req:Request,res:Response)=>{
     }
 
 }
+
+
