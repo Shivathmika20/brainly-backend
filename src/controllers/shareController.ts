@@ -9,7 +9,7 @@ export const shareContent=async(req:Request,res:Response)=>{
     if(share){
         const existingLink=await Link.findOne({userId:userId});
         if(existingLink){
-            const shareUrl = `${req.protocol}://${req.get("host")}/api/share/${existingLink.hash}`;
+            const shareUrl = `http://localhost:5173/api/share/${existingLink.hash}`;
             res.json({
                 message:"Link created successfully",
                 hash:existingLink.hash,
@@ -19,7 +19,7 @@ export const shareContent=async(req:Request,res:Response)=>{
         }
     const hash=crypto.randomBytes(8).toString("hex");
     await Link.create({hash:hash,userId:userId});
-    const shareUrl = `${req.protocol}://${req.get("host")}/api/share/${hash}`;
+    const shareUrl = `http://localhost:5173/api/share/${hash}`;
     res.status(200).json({
         message:"Link created successfully",
         hash:hash,
