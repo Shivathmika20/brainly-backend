@@ -20,12 +20,13 @@ const connectDB = async () => {
             throw new Error("DATABASE connection string is undefined in config.");
         }
         await mongoose.connect(DATABASE);
-        console.log('Connected to MongoDB:', DATABASE);
+        console.log('Connected to MongoDB successfully');
         app.listen(PORT, () => {
-            console.log('Server is running on port 3000');
+            console.log(`Server is running on port ${PORT}`);
         });
     } catch (err) {
-        console.log(err);
+        console.error('Database connection error:', err);
+        process.exit(1);
     }
 };
 
