@@ -1,51 +1,59 @@
 # 🧠 Brainly Backend
 
-This is the **backend server** for the Brainly MERN stack application.  
-It provides RESTful APIs for authentication, content management, and database interactions using **Node.js**, **Express**, and **MongoDB**.
+A simple and clean backend API for the Brainly application built with Node.js, Express, and MongoDB.
 
----
+## 🛠️ Tech Stack
 
-## 🚀 Tech Stack
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **TypeScript** - Type safety
+- **JWT** - Authentication
 
-- **Node.js** – JavaScript runtime
-- **Express.js** – Web framework for Node.js
-- **MongoDB Atlas** – Cloud database
-- **Mongoose** – ODM for MongoDB
-- **JWT (JSON Web Token)** – Authentication
+## 📋 Prerequisites
 
- 
+- Node.js (v16 or higher)
+- MongoDB Atlas account (or local MongoDB)
 
-## ⚙️ Environment Variables
+## ⚙️ Setup
 
-Create a `.env` file in the project root and add the following:
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd brainly-backend
+   ```
 
-```env
-PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/brainly
-JWT_SECRET=yourSecret
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
+3. **Create environment file**
+   
+   Create a `.env` file in the root directory:
+   ```env
+   PORT=3000
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
 
+4. **Start the server**
+   ```bash
+   npm run dev
+   ```
 
-## 🚀 Run Locally
-1️⃣ Clone the repository
-```
-git clone https://github.com/<your-username>/brainly-backend.git
-cd brainly-backend
-```
+## 🚀 Available Scripts
 
-2️⃣ Install dependencies
-```
-npm install 
-```
-3️⃣ Start the development server
-```
-npm run dev
-```
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build the project
+- `npm start` - Start production server
 
+## 📡 API Endpoints
 
+The server will be running at `http://localhost:3000`
 
+## 📝 Notes
 
-The server should now be running at:
-👉 http://localhost:5000
+- Make sure to replace the MongoDB connection string in your `.env` file
+- Keep your JWT secret secure and don't commit it to version control
 
